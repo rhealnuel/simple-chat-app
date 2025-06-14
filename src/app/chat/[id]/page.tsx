@@ -160,8 +160,8 @@ export default function ChatPage() {
         <div className="flex items-center gap-3">
           {chatPartner?.photoURL ? (
             <img
-              src={chatPartner.photoURL}
-              alt={chatPartner.username}
+              src={chatPartner?.photoURL}
+              alt={chatPartner?.username}
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
