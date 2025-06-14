@@ -15,7 +15,6 @@ import {
   limit,
   Timestamp,
 } from 'firebase/firestore'
-import toast from 'react-hot-toast'
 
 type ChatPreview = {
   user: string
@@ -85,16 +84,7 @@ export default function ChatEntryPage() {
                 timestamp: msg.timestamp,
                 unread: isUnread,
                 }
-          if (isUnread && Notification.permission === 'granted') {
-      new Notification(`New message from ${otherUser}`, {
-        body: previewText,
-        icon: preview.profileImage || '/default-avatar.png',
-      })
-    }
-
-    if (isUnread) {
-  toast(`${msg.sender}: ${msg.text || '📷 Image'}`, { icon: '💬' })
-}
+          
 
                getDoc(doc(db, 'users', otherUser)).then(userSnap => {
                 const userData = userSnap.data()

@@ -17,7 +17,6 @@ import { useEffect, useRef, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { IoImagesOutline } from 'react-icons/io5'
 import { uploadImageToCloudinary } from '@/lib/cloudinary-upload'
-import toast from 'react-hot-toast'
 
 interface ChatMessage {
   id: string;
@@ -98,16 +97,6 @@ export default function ChatPage() {
         const isUnread = msg.sender !== currentUser.displayName &&
     (!msg.readBy || !msg.readBy.includes(currentUser.displayName))
 
-  // ✅ Trigger browser notification
-  if (isUnread && Notification.permission === 'granted') {
-    new Notification(`New message from ${msg.sender}`, {
-      body: msg.text || '📷 Image',
-      icon: chatPartner?.photoURL || '/default-avatar.png',
-    })
-  }
-  if (isUnread) {
-  toast(`${msg.sender}: ${msg.text || '📷 Image'}`, { icon: '💬' })
-}
 
         
 
