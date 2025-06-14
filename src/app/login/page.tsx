@@ -10,8 +10,10 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
+    setLoading(true)
     e.preventDefault()
     try {
       await signInWithEmailAndPassword(auth, email, password)
@@ -19,6 +21,7 @@ export default function LoginPage() {
     } catch (err: any) {
       setError(err.message)
     }
+    setLoading(false)
   }
 
  return (
@@ -45,7 +48,7 @@ export default function LoginPage() {
         required
       />
 
-      <button className="w-full bg-blue-600 text-white p-2 rounded">Log In</button>
+      <button className="w-full bg-blue-600 text-white p-2 rounded">{loading? "Loading": "Log In"} </button>
 
       <p className="text-sm text-center">
         Don't have an account?{' '}

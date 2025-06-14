@@ -59,6 +59,7 @@ export default function ChatPage() {
   }, [id])
 
   // Load messages
+  
   useEffect(() => {
     if (!currentUser?.displayName || !id) return
 
@@ -112,10 +113,14 @@ export default function ChatPage() {
   }, [currentUser, id])
 
   // Send message
+  const [loading, setLoading] = useState(false)
   const sendMessage = async () => {
+    setLoading(true)
     if (!messageText && !image) return
 
+
     try {
+      
       let imageUrl = ''
 
       if (image) {
@@ -141,6 +146,7 @@ export default function ChatPage() {
     } catch (err) {
       console.error("Error sending message:", err)
     }
+    setLoading(false)
   }
 
   return (
@@ -166,7 +172,7 @@ export default function ChatPage() {
         </button>
       </div>
 
-      <div className="w-full max-w-md flex-1 overflow-y-auto border max-h-[65vh] p-4 rounded bg-white mb-4">
+      <div className="w-full max-w-md flex-1 overflow-y-auto border max-h-[70vh] p-4 rounded bg-white mb-4">
         {messages.map((msg, idx) => (
           <div
             key={idx}
@@ -229,7 +235,9 @@ export default function ChatPage() {
           onClick={sendMessage}
           className="bg-blue-600 text-white px-4 py-2 rounded"
         >
-          Send
+          {
+            loading? "Sending" : "Send"
+          }
         </button>
       </div>
     </div>
