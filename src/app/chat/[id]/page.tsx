@@ -20,7 +20,14 @@ import { IoImagesOutline } from 'react-icons/io5'
 import {uploadImageToCloudinary } from '@/lib/cloudinary-upload'
 
 
-
+interface ChatMessage {
+  id: string;
+  text?: string;
+  imageUrl?: string;
+  sender: string;
+  timestamp?: any;
+  readBy?: string[];
+}
 export default function ChatPage() {
   const { id } = useParams()
   const router = useRouter()
@@ -64,27 +71,28 @@ export default function ChatPage() {
   const unsub = onSnapshot(q, async (snapshot) => {
     const updates: Promise<void>[] = []
 
-    const msgs = snapshot.docs.map((docSnap) => {
-      const msg = { id: docSnap.id, ...docSnap.data() }
+    const msgs: ChatMessage[] = snapshot.docs.map((docSnap) => {
+  const data = docSnap.data() as ChatMessage;
+  const msg: ChatMessage = { id: docSnap.id, ...data };
 
-      // Mark as read if from other user and not yet marked
-      if (
-        msg.sender !== currentUser.displayName &&
-        (!msg.readBy || !msg.readBy.includes(currentUser.displayName))
-      ) {
-        const msgRef = doc(db, 'messages', generatedId, 'messages', docSnap.id)
-        updates.push(
-          setDoc(
-            msgRef,
-            {
-              readBy: [...(msg.readBy || []), currentUser.displayName],
-            },
-            { merge: true }
-          )
-        )
-      }
+  if (
+    msg.sender !== currentUser.displayName &&
+    (!msg.readBy || !msg.readBy.includes(currentUser.displayName))
+  ) {
+    const msgRef = doc(db, 'messages', generatedId, 'messages', docSnap.id);
+    updates.push(
+      setDoc(
+        msgRef,
+        {
+          readBy: [...(msg.readBy || []), currentUser.displayName],
+        },
+        { merge: true }
+      )
+    );
+  }
 
-      return msg
+  return msg;
+
     })
 
     await Promise.all(updates)
