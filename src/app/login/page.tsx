@@ -21,29 +21,43 @@ export default function LoginPage() {
     }
   }
 
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleLogin} className="space-y-4 w-80">
-        <h2 className="text-2xl font-bold text-center">Log In</h2>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <input
-          className="w-full p-2 border rounded"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          required
-        />
-        <input
-          className="w-full p-2 border rounded"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          required
-        />
-        <button className="w-full bg-blue-600 text-white p-2 rounded">Log In</button>
-      </form>
-    </div>
-  )
+ return (
+  <div className="min-h-screen flex items-center justify-center">
+    <form onSubmit={handleLogin} className="space-y-4 w-80">
+      <h2 className="text-2xl font-bold text-center">Log In</h2>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
+      <input
+        className="w-full p-2 border rounded"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+
+      <input
+        className="w-full p-2 border rounded"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
+      />
+
+      <button className="w-full bg-blue-600 text-white p-2 rounded">Log In</button>
+
+      <p className="text-sm text-center">
+        Don't have an account?{' '}
+        <span
+          onClick={() => router.push('/signup')}
+          className="text-blue-600 cursor-pointer hover:underline"
+        >
+          Sign up
+        </span>
+      </p>
+    </form>
+  </div>
+)
+
 }

@@ -70,63 +70,72 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-     <form onSubmit={handleSignup} className="space-y-4 w-80">
-  <h2 className="text-2xl font-bold text-center">Sign Up</h2>
-  {error && <p className="text-red-500 text-sm">{error}</p>}
+  <div className="min-h-screen flex items-center justify-center">
+    <form onSubmit={handleSignup} className="space-y-4 w-80">
+      <h2 className="text-2xl font-bold text-center">Sign Up</h2>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
 
-  <input
-    className="w-full p-2 border rounded"
-    type="text"
-    placeholder="Username"
-    value={username}
-    onChange={e => setUsername(e.target.value)}
-    required
-  />
-
-  <input
-    className="w-full p-2 border rounded"
-    type="email"
-    placeholder="Email"
-    value={email}
-    onChange={e => setEmail(e.target.value)}
-    required
-  />
-
-  <input
-    className="w-full p-2 border rounded"
-    type="password"
-    placeholder="Password"
-    value={password}
-    onChange={e => setPassword(e.target.value)}
-    required
-  />
-
-  <input
-    type="file"
-    accept="image/*"
-    className="w-full p-2 border rounded"
-    onChange={e => setProfileImage(e.target.files?.[0] || null)}
-  />
-
-  {/* Preview if image selected */}
-  {profileImage && (
-    <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border">
-      <img
-        src={URL.createObjectURL(profileImage)}
-        alt="Preview"
-        className="object-cover w-full h-full"
+      <input
+        className="w-full p-2 border rounded"
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        required
       />
-    </div>
-  )}
 
-  <button
-    className="w-full bg-blue-600 text-white p-2 rounded disabled:opacity-50"
-    disabled={loading}
-  >
-    {loading ? 'Creating...' : 'Sign Up'}
-  </button>
-</form>
-    </div>
-  )
+      <input
+        className="w-full p-2 border rounded"
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        required
+      />
+
+      <input
+        className="w-full p-2 border rounded"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
+      />
+
+      <input
+        type="file"
+        accept="image/*"
+        className="w-full p-2 border rounded"
+        onChange={e => setProfileImage(e.target.files?.[0] || null)}
+      />
+
+      {profileImage && (
+        <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border">
+          <img
+            src={URL.createObjectURL(profileImage)}
+            alt="Preview"
+            className="object-cover w-full h-full"
+          />
+        </div>
+      )}
+
+      <button
+        className="w-full bg-blue-600 text-white p-2 rounded disabled:opacity-50"
+        disabled={loading}
+      >
+        {loading ? 'Creating...' : 'Sign Up'}
+      </button>
+
+      <p className="text-sm text-center">
+        Already have an account?{' '}
+        <span
+          onClick={() => router.push('/login')}
+          className="text-blue-600 cursor-pointer hover:underline"
+        >
+          Log in
+        </span>
+      </p>
+    </form>
+  </div>
+)
 }
